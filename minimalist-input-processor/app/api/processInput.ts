@@ -7,6 +7,7 @@ const anthropic = new Anthropic({
 export async function processInputAPI(text: string, image: File | null) {
   // Simulate API processing time
   await new Promise(resolve => setTimeout(resolve, 1500));
+  const base64Image = image ? Buffer.from(await image.arrayBuffer()).toString('base64') : "";
 
   const msg = await anthropic.messages.create({
     model: "claude-3-5-sonnet-20241022",
@@ -29,8 +30,8 @@ export async function processInputAPI(text: string, image: File | null) {
             "type": "image",
             "source": {
               "type": "base64", 
-              "media_type": "image/jpeg",
-              "data": image ? Buffer.from(await image.arrayBuffer()).toString('base64') : ""
+              "media_type": image?.type as "image/jpeg" | "image/png" | "image/gif" | "image/webp",
+              "data": base64Image
             }
           }
         ]
