@@ -51,12 +51,12 @@ export async function processInputAPI(text: string, image: File | null) {
   let response = msg.content[0].type === 'text' ? msg.content[0].text : '';
 
   if (text) {
-    response += ` But hey, at least you wrote ${text.length} characters. That's... something.`;
+    response += ` \nBut hey, at least you wrote ${text.length} characters. That's... something.`;
   }
 
-  if (image) {
-    response += ` And thanks for the pic, but I've seen better compositions in a preschool art class.`;
-  }
+  //if (image) {
+    //response += ` And thanks for the pic, but I've seen better compositions in a preschool art class.`;
+  //}
 
   return { message: response };
 }
