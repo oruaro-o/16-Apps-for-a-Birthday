@@ -24,6 +24,14 @@ export async function processInputAPI(text: string, image: File | null) {
           {
             "type": "text",
             "text": `${text}`
+          },
+          {
+            "type": "image",
+            "source": {
+              "type": "base64", 
+              "media_type": "image/jpeg",
+              "data": image ? Buffer.from(await image.arrayBuffer()).toString('base64') : ""
+            }
           }
         ]
       }
