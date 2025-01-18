@@ -39,7 +39,7 @@ export async function processInputAPI(text: string, image: File | null) {
   ];
 
   //let response = roasts[Math.floor(Math.random() * roasts.length)];
-  let response = msg.content[0].type;
+  let response = msg.content[0].type === 'text' ? msg.content[0].text : '';
 
   if (text) {
     response += ` But hey, at least you wrote ${text.length} characters. That's... something.`;
