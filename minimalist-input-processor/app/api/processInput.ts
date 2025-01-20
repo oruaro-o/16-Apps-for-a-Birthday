@@ -39,19 +39,19 @@ export async function processInputAPI(text: string, image: File | null) {
     ]
   });
 
-  const roasts = [
-    "Wow, that idea is so half-baked, it's practically raw.",
-    "I've seen better ideas in a fortune cookie.",
-    "Your creativity is like a candle in the wind - flickering and about to go out.",
-    "That concept is so basic, it probably thinks pumpkin spice is exotic.",
-    "If ideas were currency, you'd be filing for bankruptcy.",
-  ];
+  //const roasts = [
+    //"Wow, that idea is so half-baked, it's practically raw.",
+    //"I've seen better ideas in a fortune cookie.",
+    //"Your creativity is like a candle in the wind - flickering and about to go out.",
+    //"That concept is so basic, it probably thinks pumpkin spice is exotic.",
+    //"If ideas were currency, you'd be filing for bankruptcy.",
+  //];
 
   //let response = roasts[Math.floor(Math.random() * roasts.length)];
   let response = msg.content[0].type === 'text' ? msg.content[0].text : '';
 
   if (text) {
-    response += ` \nBut hey, at least you wrote ${text.length} characters. That's... something.`;
+    response += ` \n But hey, at least you wrote ${text.length} characters. That's... something.`;
   }
 
   //if (image) {
