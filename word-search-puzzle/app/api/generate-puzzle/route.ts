@@ -21,7 +21,8 @@ export async function POST(req: Request) {
 
     if (useAI) {
       const { text } = await generateText({
-        model: anthropic("claude-2"),
+        model: anthropic("claude-3-5-haiku-20241022"),
+        system: "You generate words related to a {{topic}}. You provide only generated words, separated by commas, without any additional text or explanation.",
         prompt: `Generate 10 words related to the topic or statement: "${topic}". Provide only the words, separated by commas, without any additional text or explanation.`,
       })
       words = text.split(",").map((word) => word.trim().toUpperCase())
