@@ -31,7 +31,7 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
     .replace(/=+$/, '')
 }
 
-// This is a placeholder for the actual Spotify API integration
+// This is a placeholder for the actual Spotify-API integration
 export const spotifyApi = {
   authorize: async (scope: string) => {
     // Generate and store PKCE verifier
