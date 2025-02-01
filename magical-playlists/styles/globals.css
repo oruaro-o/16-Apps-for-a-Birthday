@@ -1,0 +1,27 @@
+@keyframes scroll-2rows {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gentle-flash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-scroll-2rows {
+  animation: scroll-2rows 120s linear infinite;
+}
+
+.animate-gentle-flash {
+  animation: gentle-flash 2s ease-in-out infinite;
+}
+
