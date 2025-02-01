@@ -4,8 +4,8 @@ const SPOTIFY_TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
 const SPOTIFY_API_BASE = 'https://api.spotify.com/v1'
 
 // Replace with your actual client ID from Spotify Developer Dashboard
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID as string
-const REDIRECT_URI = process.env.SPOTIFY_REDIRECT_URI as string
+const CLIENT_ID = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID as string
+const REDIRECT_URI = process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URI as string
 
 if (!CLIENT_ID || !REDIRECT_URI) {
   throw new Error('Missing required environment variables')
