@@ -10,12 +10,12 @@ export default function SyntheticV0PageForDeployment() {
 
   const handleLogin = async () => {
     try {
-      // Request necessary Spotify permissions
+      // This will redirect to Spotify's auth page
       await spotifyApi.authorize(
         "playlist-read-private playlist-modify-private"
       );
-      // After successful authorization, Spotify will redirect to our callback URL
-      router.push("/dashboard");
+      // We don't need router.push here because spotifyApi.authorize
+      // will redirect to Spotify's auth page
     } catch (error) {
       console.error("Login failed:", error);
     }
