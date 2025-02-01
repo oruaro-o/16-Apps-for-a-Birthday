@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { spotifyApi } from "../../api/spotify";
 
-export default function CallbackPage() {
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -35,9 +35,15 @@ export default function CallbackPage() {
     handleCallback();
   }, [searchParams, router]);
 
+  return <div className="text-white text-xl">Logging you in...</div>;
+}
+
+export default function CallbackPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#2D1B4C] to-[#1E123A]">
-      <div className="text-white text-xl">Logging you in...</div>
+      <Suspense fallback={<div className="text-white text-xl">Loading...</div>}>
+        <CallbackContent />
+      </Suspense>
     </div>
   );
 }
