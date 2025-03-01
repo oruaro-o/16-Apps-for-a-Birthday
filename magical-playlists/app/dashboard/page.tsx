@@ -5,9 +5,15 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { spotifyApi } from "../../api/spotify";
 
+interface PlaylistType {
+  id: string;
+  name: string;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
-  const [playlists, setPlaylists] = useState([]);
+  const [playlists, setPlaylists] = useState<PlaylistType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Check if user is authenticated
@@ -20,10 +26,13 @@ export default function DashboardPage() {
     // Load user's playlists
     const loadPlaylists = async () => {
       try {
+        setLoading(true);
         const userPlaylists = await spotifyApi.getUserPlaylists(token);
         setPlaylists(userPlaylists);
       } catch (error) {
         console.error("Failed to load playlists:", error);
+      } finally {
+        setLoading(false);
       }
     };
     loadPlaylists();
@@ -33,5 +42,10 @@ export default function DashboardPage() {
     router.push("/playlist-creation");
   };
 
-  return <Dashboard onCreateMagic={handleCreateMagic} />;
+  return (
+    <Dashboard
+      onCreateMagic={handleCreateMagic}
+      playlists={playlists}
+    />
+  );
 }
