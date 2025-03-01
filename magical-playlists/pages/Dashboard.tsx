@@ -65,12 +65,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   )}
                   {/* Overlay with playlist name */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#2D1B4C] to-transparent py-3 px-2">
-                    <div className="bg-[#2D1B4C] bg-opacity-90 rounded p-1">
-                      <span className="text-xs text-white font-bold truncate w-full block text-center">
-                        {playlist.name}
-                      </span>
-                    </div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-[#2D1B4C] py-3 px-2">
+                    <span className="text-xs text-white font-bold truncate w-full block text-center">
+                      {playlist.name}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -80,9 +78,9 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Footer Area */}
-      <div className="mt-auto py-6 border-t border-white border-opacity-10">
+      <div className="mt-auto py-6">
         <p className="text-sm text-center text-white text-opacity-50">
-          Powered by Spotify
+          Powered by Oru and Coffee
         </p>
       </div>
     </div>
