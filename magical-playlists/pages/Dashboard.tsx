@@ -42,7 +42,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(6, 1fr)",
-            gap: "1rem",
+            gap: "2rem",
             minWidth: "700px",
           }}
         >
@@ -51,8 +51,8 @@ const Dashboard: React.FC<DashboardProps> = ({
               key={playlist.id}
               className="group cursor-pointer w-full"
             >
-              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden">
-                <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
+              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden relative">
+                <div className="h-full w-full">
                   {playlist.coverArt ? (
                     <img
                       src={playlist.coverArt}
@@ -60,13 +60,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="text-2xl text-white">🎵</div>
+                    <div className="w-full h-full flex items-center justify-center bg-[#1DB954] bg-opacity-20">
+                      <div className="text-4xl text-white">🎵</div>
+                    </div>
                   )}
-                </div>
-                <div className="h-1/4 flex items-center justify-center px-2">
-                  <span className="text-xs text-white font-medium truncate w-full text-center">
-                    {playlist.name}
-                  </span>
+                  {/* Overlay with playlist name */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-60 p-2 backdrop-blur-sm">
+                    <span className="text-xs text-white font-medium truncate w-full block text-center">
+                      {playlist.name}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
