@@ -44,7 +44,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 key={playlist.id}
                 className="h-20 w-20 bg-white bg-opacity-10 rounded-lg flex flex-col items-center justify-center p-4 text-white hover:bg-opacity-20 transition-all cursor-pointer shadow-md"
               >
-                <div className="w-full h-20 bg-[#1DB954] bg-opacity-20 rounded-lg flex items-center justify-center p-2">
+                <div className="h-20 bg-[#1DB954] bg-opacity-20 rounded-lg flex items-center justify-center p-2">
                   <span className="text-sm font-bold text-center line-clamp-3">
                     {playlist.name}
                   </span>
