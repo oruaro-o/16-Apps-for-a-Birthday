@@ -36,12 +36,19 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Playlists Grid - Fixed 7 columns per row */}
-      <div className="w-full">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+      <div className="w-full overflow-x-auto">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(7, 1fr)",
+            gap: "1rem",
+            minWidth: "700px",
+          }}
+        >
           {playlists.map((playlist) => (
             <div
               key={playlist.id}
-              className="group cursor-pointer"
+              className="group cursor-pointer w-full"
             >
               <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition-all shadow-md overflow-hidden">
                 <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
