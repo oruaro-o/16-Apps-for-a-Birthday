@@ -42,12 +42,18 @@ const Dashboard: React.FC<DashboardProps> = ({
             {playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="h-16 w-16 min-w-0 bg-white bg-opacity-10 rounded-lg flex flex-col items-center justify-center p-4 text-white hover:bg-opacity-20 transition-all cursor-pointer shadow-md"
+                className="group cursor-pointer"
               >
-                <div className="h-12 w-12 overflow-hidden bg-[#1DB954] bg-opacity-20 rounded-lg flex items-center justify-center p-2">
-                  <span className="text-sm font-bold text-center truncate w-full">
-                    {playlist.name}
-                  </span>
+                <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden">
+                  <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
+                    {/* Playlist icon/art would go here */}
+                    <div className="text-2xl text-white">🎵</div>
+                  </div>
+                  <div className="h-1/4 flex items-center justify-center px-2">
+                    <span className="text-xs text-white font-medium truncate w-full text-center">
+                      {playlist.name}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
