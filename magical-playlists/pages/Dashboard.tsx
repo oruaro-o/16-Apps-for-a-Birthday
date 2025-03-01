@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(7, 1fr)",
+            gridTemplateColumns: "repeat(6, 1fr)",
             gap: "1rem",
             minWidth: "700px",
           }}
@@ -50,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               key={playlist.id}
               className="group cursor-pointer w-full"
             >
-              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition-all shadow-md overflow-hidden">
+              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden">
                 <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
                   {/* Playlist icon/art would go here */}
                   <div className="text-2xl text-white">🎵</div>
