@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 interface PlaylistType {
   id: string;
   name: string;
+  coverArt?: string;
 }
 
 interface DashboardProps {
@@ -52,8 +53,15 @@ const Dashboard: React.FC<DashboardProps> = ({
             >
               <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden">
                 <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
-                  {/* Playlist icon/art would go here */}
-                  <div className="text-2xl text-white">🎵</div>
+                  {playlist.coverArt ? (
+                    <img
+                      src={playlist.coverArt}
+                      alt={playlist.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="text-2xl text-white">🎵</div>
+                  )}
                 </div>
                 <div className="h-1/4 flex items-center justify-center px-2">
                   <span className="text-xs text-white font-medium truncate w-full text-center">

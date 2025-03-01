@@ -8,6 +8,7 @@ import { spotifyApi } from "../../api/spotify";
 interface PlaylistType {
   id: string;
   name: string;
+  coverArt?: string;
 }
 
 export default function DashboardPage() {

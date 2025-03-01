@@ -111,6 +111,7 @@ export const spotifyApi = {
     return data.items.map((playlist: any) => ({
       id: playlist.id,
       name: playlist.name,
+      coverArt: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : undefined
     }))
   },
 }
