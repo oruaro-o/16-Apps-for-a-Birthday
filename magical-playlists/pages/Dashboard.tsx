@@ -64,12 +64,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                       <div className="text-4xl text-white">🎵</div>
                     </div>
                   )}
-                  {/* Overlay with playlist name */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-[#2D1B4C] py-3 px-2">
-                    <span className="text-xs text-white font-bold truncate w-full block text-center">
-                      {playlist.name}
-                    </span>
-                  </div>
+                </div>
+                {/* Overlay with playlist name */}
+                <div className="absolute bottom-0 left-0 right-0 w-full bg-[#2D1B4C] py-3 px-2">
+                  <span className="text-xs text-white font-bold truncate w-full block text-center">
+                    {playlist.name}
+                  </span>
                 </div>
               </div>
             </div>
@@ -80,7 +80,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       {/* Footer Area */}
       <div className="mt-auto py-6">
         <p className="text-sm text-center text-white text-opacity-50">
-          Powered by Oru and Coffee
+          Powered by Oru & ☕️
         </p>
       </div>
     </div>
