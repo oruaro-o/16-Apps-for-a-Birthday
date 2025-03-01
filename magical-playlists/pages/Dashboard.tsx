@@ -36,34 +36,28 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Playlists Grid - Fixed 7 columns per row */}
-      {/* <div className="flex-grow mb-16 w-full">
-        {playlists.length > 0 ? ( */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
-        {playlists.map((playlist) => (
-          <div
-            key={playlist.id}
-            className="group cursor-pointer"
-          >
-            <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition-all shadow-md overflow-hidden">
-              <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
-                {/* Playlist icon/art would go here */}
-                <div className="text-2xl text-white">🎵</div>
-              </div>
-              <div className="h-1/4 flex items-center justify-center px-2">
-                <span className="text-xs text-white font-medium truncate w-full text-center">
-                  {playlist.name}
-                </span>
+      <div className="w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+          {playlists.map((playlist) => (
+            <div
+              key={playlist.id}
+              className="group cursor-pointer"
+            >
+              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition-all shadow-md overflow-hidden">
+                <div className="h-3/4 bg-[#1DB954] bg-opacity-20 flex items-center justify-center">
+                  {/* Playlist icon/art would go here */}
+                  <div className="text-2xl text-white">🎵</div>
+                </div>
+                <div className="h-1/4 flex items-center justify-center px-2">
+                  <span className="text-xs text-white font-medium truncate w-full text-center">
+                    {playlist.name}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      {/* ) : (
-          <div className="w-full py-20 flex items-center justify-center text-white opacity-50">
-            Loading playlists...
-          </div>
-        )}
-      </div> */}
 
       {/* Footer Area */}
       <div className="mt-auto pt-4 border-t border-white border-opacity-10">
