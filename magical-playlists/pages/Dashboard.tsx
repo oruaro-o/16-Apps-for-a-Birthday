@@ -78,7 +78,7 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Footer Area */}
-      <div className="mt-auto pt-4 border-t border-white border-opacity-10">
+      <div className="mt-auto pt-4 border-t border-white border-opacity-10 gap-4">
         <p className="text-sm text-center text-white text-opacity-50">
           Powered by Spotify
         </p>
