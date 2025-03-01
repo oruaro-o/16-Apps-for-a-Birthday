@@ -36,16 +36,16 @@ const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Playlists Grid - Fixed 7 columns per row */}
-      <div className="flex-grow mb-16">
+      <div className="flex-grow mb-16 w-full">
         {playlists.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
+          <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
             {playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="h-20 w-20 bg-white bg-opacity-10 rounded-lg flex flex-col items-center justify-center p-4 text-white hover:bg-opacity-20 transition-all cursor-pointer shadow-md"
+                className="h-20 w-20 min-w-0 bg-white bg-opacity-10 rounded-lg flex flex-col items-center justify-center p-4 text-white hover:bg-opacity-20 transition-all cursor-pointer shadow-md"
               >
-                <div className="h-20 bg-[#1DB954] bg-opacity-20 rounded-lg flex items-center justify-center p-2">
-                  <span className="text-sm font-bold text-center line-clamp-3">
+                <div className="h-12 w-12 overflow-hidden bg-[#1DB954] bg-opacity-20 rounded-lg flex items-center justify-center p-2">
+                  <span className="text-sm font-bold text-center truncate w-full">
                     {playlist.name}
                   </span>
                 </div>
