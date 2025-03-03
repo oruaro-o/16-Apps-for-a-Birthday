@@ -80,7 +80,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Footer Area */}
-        <div className="mt-auto pt-6 border-t border-white border-opacity-10">
+        <div className="mt-auto py-6">
           <p className="text-sm text-center text-white text-opacity-50">
             Powered by Oru & ☕️
           </p>
