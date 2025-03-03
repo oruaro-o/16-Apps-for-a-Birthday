@@ -51,26 +51,25 @@ const Dashboard: React.FC<DashboardProps> = ({
               key={playlist.id}
               className="group cursor-pointer w-full"
             >
-              <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden relative">
-                <div className="h-full w-full">
-                  {playlist.coverArt ? (
-                    <img
-                      src={playlist.coverArt}
-                      alt={playlist.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-[#1DB954] bg-opacity-20">
-                      <div className="text-4xl text-white">🎵</div>
-                    </div>
-                  )}
+              <div className="flex flex-col items-center">
+                <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden relative w-full">
+                  <div className="h-full w-full">
+                    {playlist.coverArt ? (
+                      <img
+                        src={playlist.coverArt}
+                        alt={playlist.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-[#1DB954] bg-opacity-20">
+                        <div className="text-4xl text-white">🎵</div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                {/* Overlay with playlist name */}
-                <div className="absolute bottom-0 left-0 right-0 w-full bg-[#2D1B4C] py-3 px-2">
-                  <span className="text-xs text-white font-bold truncate w-full block text-center">
-                    {playlist.name}
-                  </span>
-                </div>
+                <span className="text-sm text-white font-medium mt-2 truncate w-full text-center">
+                  {playlist.name}
+                </span>
               </div>
             </div>
           ))}
