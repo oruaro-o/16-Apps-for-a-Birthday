@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Playlists Grid */}
         <div className="overflow-x-auto -mx-4">
-          <div className="px-4">
+          <div className="px-4 flex-wrap">
             <div
               style={{
                 display: "grid",
@@ -57,7 +57,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 >
                   <div className="flex flex-col items-center">
                     <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden relative w-full">
-                      <div className="h-full w-full">
+                      <div className="h-full w-full flex-none">
                         {playlist.coverArt ? (
                           <img
                             src={playlist.coverArt}
@@ -65,7 +65,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             className="w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-[#1DB954] bg-opacity-20">
+                          <div className="w-full h-full flex items-center justify-center bg-[#1DB954]">
                             <div className="text-4xl text-white">🎵</div>
                           </div>
                         )}
