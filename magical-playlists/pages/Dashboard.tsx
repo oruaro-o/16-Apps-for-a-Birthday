@@ -23,7 +23,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* py-10 mt-16 mb-16 */}
         <div className="py-10 mt-16 mb-16 flex justify-center">
           <Button
-            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#1DB954] animate-gentle-flash"
+            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
             onClick={onCreateMagic}
           >
             Create Magic
@@ -56,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   className="group cursor-pointer w-full"
                 >
                   <div className="flex flex-col items-center w-full">
-                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden w-full">
+                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-auto">
                       <div className="relative w-full h-full">
                         {playlist.coverArt ? (
                           <img
