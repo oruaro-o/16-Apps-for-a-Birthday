@@ -20,7 +20,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex flex-col">
       <div className="px-8 py-10 flex flex-col flex-grow">
         {/* Top section with button */}
-        <div className="flex justify-center mb-16">
+        <div className="flex py-10 justify-center mb-16">
           <Button
             className="w-44 h-44 rounded-full text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#1DB954] animate-gentle-flash"
             onClick={onCreateMagic}
