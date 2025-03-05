@@ -40,7 +40,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Playlists Grid */}
         <div className="overflow-x-auto -mx-4">
-          <div className="px-4 flex-wrap">
+          <div className="px-4">
             <div
               style={{
                 display: "grid",
@@ -71,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate w-full text-center">
+                    <span className="text-sm text-white font-bold mt-2 truncate overflow-auto text-center">
                       {playlist.name}
                     </span>
                   </div>
