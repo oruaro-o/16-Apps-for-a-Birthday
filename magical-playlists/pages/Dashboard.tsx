@@ -56,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   className="group cursor-pointer w-full"
                 >
                   <div className="flex flex-col items-center w-full">
-                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-auto">
+                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden w-full">
                       <div className="relative w-full h-full">
                         {playlist.coverArt ? (
                           <img
@@ -71,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate overflow-auto text-center">
+                    <span className="text-sm text-white font-bold mt-2 truncate text-center text-wrap">
                       {playlist.name}
                     </span>
                   </div>
