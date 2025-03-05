@@ -23,7 +23,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* py-10 mt-16 mb-16 */}
         <div className="py-10 mt-16 mb-16 flex justify-center">
           <Button
-            className="w-44 h-44 rounded-full text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#1DB954] animate-gentle-flash"
+            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#1DB954] animate-gentle-flash"
             onClick={onCreateMagic}
           >
             Create Magic
@@ -55,23 +55,23 @@ const Dashboard: React.FC<DashboardProps> = ({
                   key={playlist.id}
                   className="group cursor-pointer w-full"
                 >
-                  <div className="flex flex-col items-center">
-                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden relative w-full">
-                      <div className="h-full w-full flex-none">
+                  <div className="flex flex-col items-center w-full">
+                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden w-full">
+                      <div className="relative w-full h-full">
                         {playlist.coverArt ? (
                           <img
                             src={playlist.coverArt}
                             alt={playlist.name}
-                            className="w-full h-full object-cover"
+                            className="absolute inset-0 w-full h-full object-cover"
                           />
                         ) : (
-                          <div className="w-full h-full flex items-center justify-center bg-[#1DB954]">
+                          <div className="absolute inset-0 flex items-center justify-center bg-[#1DB954]">
                             <div className="text-4xl text-white">🎵</div>
                           </div>
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate overflow-hidden w-full text-center">
+                    <span className="text-sm text-white font-bold mt-2 truncate w-full text-center">
                       {playlist.name}
                     </span>
                   </div>
