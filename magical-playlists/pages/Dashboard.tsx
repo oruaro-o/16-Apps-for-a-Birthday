@@ -18,9 +18,10 @@ const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex flex-col">
-      <div className="px-8 flex flex-col flex-grow relative">
+      <div className="px-8 py-80 flex flex-col flex-grow relative">
         {/* Top section with button */}
-        <div className="py-40 flex justify-center mt-16 mb-16">
+        {/* py-10 mt-16 mb-16 */}
+        <div className="flex justify-center">
           <Button
             className="w-44 h-44 rounded-full text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#2D1B4C] transition-all shadow-lg border-2 border-[#1DB954] animate-gentle-flash"
             onClick={onCreateMagic}
@@ -70,7 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate w-full text-center">
+                    <span className="text-sm text-white font-bold mt-2 truncate overflow-hidden w-full text-center">
                       {playlist.name}
                     </span>
                   </div>
