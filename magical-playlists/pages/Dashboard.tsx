@@ -141,7 +141,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate text-center text-wrap">
+                    <span className="text-sm text-white font-bold mt-2 text-center text-wrap line-clamp-3">
                       {playlist.name}
                     </span>
                   </div>
