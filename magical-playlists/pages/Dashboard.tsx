@@ -98,7 +98,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Playlists Grid */}
         <div className="overflow-x-auto -mx-4">
-          <div className="px-4 flex-wrap">
+          <div className="px-4">
             <div
               style={{
                 display: "grid",
