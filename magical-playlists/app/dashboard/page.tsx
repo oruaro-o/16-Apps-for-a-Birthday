@@ -40,7 +40,7 @@ export default function DashboardPage() {
   }, [router]);
 
   const handleCreateMagic = () => {
-    router.push("/playlist-creation");
+    console.log("Magic playlist created!");
   };
 
   return (

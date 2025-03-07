@@ -1,5 +1,7 @@
 import type React from "react";
 import { Button } from "../components/Button";
+import { useState } from "react";
+import { claudeApi } from "../api/claude";
 
 interface PlaylistType {
   id: string;
@@ -16,15 +18,71 @@ const Dashboard: React.FC<DashboardProps> = ({
   onCreateMagic,
   playlists = [],
 }) => {
+  const [prompt, setPrompt] = useState("");
+  const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
+
+  const togglePlaylistSelection = (id: string) => {
+    setSelectedPlaylists((prev) =>
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id]
+    );
+  };
+
+  const handleCreateMagic = async () => {
+    if (prompt.trim() === "") {
+      alert("Please enter a prompt");
+      return;
+    }
+
+    if (selectedPlaylists.length === 0) {
+      alert("Please select at least one playlist");
+      return;
+    }
+
+    // Get the selected playlist details
+    const selectedPlaylistDetails = playlists
+      .filter((playlist) => selectedPlaylists.includes(playlist.id))
+      .map((playlist) => ({
+        id: playlist.id,
+        name: playlist.name,
+      }));
+
+    // Send to Claude API
+    try {
+      const result = await claudeApi.complete({
+        prompt: `Create a playlist based on: ${prompt}. Using playlists: ${JSON.stringify(
+          selectedPlaylistDetails
+        )}`,
+        max_tokens: 1000,
+      });
+      console.log("Claude API result:", result);
+
+      // Call the original onCreateMagic to navigate or perform additional actions
+      onCreateMagic();
+    } catch (error) {
+      console.error("Error calling Claude API:", error);
+      alert("Failed to create playlist. Please try again.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex flex-col">
       <div className="px-8 py-10 flex flex-col flex-grow relative">
+        {/* Prompt input */}
+        <div className="mb-8">
+          <textarea
+            className="w-full min-h-[100px] bg-white bg-opacity-10 text-white rounded-lg p-4 resize-none border border-[#1DB954] focus:outline-none focus:ring-2 focus:ring-[#1DB954]"
+            placeholder="Describe the perfect playlist..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+          />
+        </div>
+
         {/* Top section with button */}
         {/* py-10 mt-16 mb-16 */}
         <div className="py-10 mt-16 mb-16 flex justify-center">
           <Button
-            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#1DB954] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
-            onClick={onCreateMagic}
+            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#1DB954] hover:text-[#1E123A] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
+            onClick={handleCreateMagic}
           >
             Create Magic
           </Button>
@@ -40,7 +98,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Playlists Grid */}
         <div className="overflow-x-auto -mx-4">
-          <div className="px-4">
+          <div className="px-4 flex-wrap">
             <div
               style={{
                 display: "grid",
@@ -54,9 +112,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <div
                   key={playlist.id}
                   className="group cursor-pointer w-full"
+                  onClick={() => togglePlaylistSelection(playlist.id)}
                 >
                   <div className="flex flex-col items-center w-full">
-                    <div className="bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden w-full">
+                    <div
+                      className={`bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg aspect-square transition-all shadow-md overflow-hidden w-full ${
+                        selectedPlaylists.includes(playlist.id)
+                          ? "ring-4 ring-[#1DB954]"
+                          : ""
+                      }`}
+                    >
                       <div className="relative w-full h-full">
                         {playlist.coverArt ? (
                           <img
@@ -69,9 +134,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                             <div className="text-4xl text-white">🎵</div>
                           </div>
                         )}
+                        {selectedPlaylists.includes(playlist.id) && (
+                          <div className="absolute top-2 right-2 bg-[#1DB954] rounded-full w-6 h-6 flex items-center justify-center">
+                            <span className="text-white text-xs">✓</span>
+                          </div>
+                        )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate text-center text-wrap">
+                    <span className="text-sm text-white font-bold mt-2 truncate w-full text-center">
                       {playlist.name}
                     </span>
                   </div>
