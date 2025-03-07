@@ -98,16 +98,8 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Playlists Grid */}
         <div className="overflow-x-auto -mx-4">
-          <div className="px-4">
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(6, 1fr)",
-                gridAutoRows: "1fr",
-                gap: "2rem",
-                minWidth: "700px",
-              }}
-            >
+          <div className="px-4 py-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
               {playlists.map((playlist) => (
                 <div
                   key={playlist.id}
