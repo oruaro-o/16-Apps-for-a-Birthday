@@ -66,7 +66,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex flex-col">
-      <div className="px-8 py-10 flex flex-col flex-grow relative">
+      <div className="px-8 py-10 mt-16 flex flex-col flex-grow relative">
         {/* Prompt input */}
         <div className="mb-8">
           <textarea
@@ -79,7 +79,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
         {/* Top section with button */}
         {/* py-10 mt-16 mb-16 */}
-        <div className="py-10 mt-16 mb-16 flex justify-center">
+        <div className="py-6 mb-12 flex justify-center">
           <Button
             className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#1DB954] hover:text-[#1E123A] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
             onClick={handleCreateMagic}
@@ -136,12 +136,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                         )}
                         {selectedPlaylists.includes(playlist.id) && (
                           <div className="absolute top-2 right-2 bg-[#1DB954] rounded-full w-6 h-6 flex items-center justify-center">
-                            <span className="text-white text-xs">✓</span>
+                            <span className="text-white text-xs">✨</span>
                           </div>
                         )}
                       </div>
                     </div>
-                    <span className="text-sm text-white font-bold mt-2 truncate w-full text-center">
+                    <span className="text-sm text-white font-bold mt-2 truncate text-center text-wrap">
                       {playlist.name}
                     </span>
                   </div>
