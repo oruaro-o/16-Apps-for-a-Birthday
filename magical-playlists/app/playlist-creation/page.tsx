@@ -1,14 +1,14 @@
-"use client";
+// "use client";
 
-import PlaylistCreation from "../../pages/PlaylistCreation";
-import { useRouter } from "next/navigation";
+// import PlaylistCreation from "../../pages/PlaylistCreation";
+// import { useRouter } from "next/navigation";
 
-export default function PlaylistCreationPage() {
-  const router = useRouter();
+// export default function PlaylistCreationPage() {
+//   const router = useRouter();
 
-  const handleBack = () => {
-    router.push("/dashboard");
-  };
+//   const handleBack = () => {
+//     router.push("/dashboard");
+//   };
 
-  return <PlaylistCreation onBack={handleBack} />;
-}
+//   return <PlaylistCreation onBack={handleBack} />;
+// }
