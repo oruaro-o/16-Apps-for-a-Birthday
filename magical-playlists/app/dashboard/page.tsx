@@ -18,40 +18,41 @@ export default function DashboardPage() {
   const [accessToken, setAccessToken] = useState<string>("");
 
   useEffect(() => {
-    // Check if user is authenticated
-    const token = localStorage.getItem("spotify_access_token");
-    if (!token) {
-      router.push("/");
-      return;
-    }
+    const validateAndLoadData = async () => {
+      // Check if user is authenticated
+      const token = localStorage.getItem("spotify_access_token");
+      if (!token) {
+        router.push("/");
+        return;
+      }
 
-    setAccessToken(token);
+      setAccessToken(token);
 
-    // Load user's playlists
-    const loadPlaylists = async () => {
       try {
         setLoading(true);
         const userPlaylists = await spotifyApi.getUserPlaylists(token);
         setPlaylists(userPlaylists);
       } catch (error) {
         console.error("Failed to load playlists:", error);
-        // If we get an unauthorized error, redirect to login
-        if (
-          error instanceof Error &&
-          error.message.includes("Failed to fetch playlists")
-        ) {
-          router.push("/");
-        }
+        // If we get an unauthorized error or any other error, redirect to login
+        localStorage.removeItem("spotify_access_token"); // Clear invalid token
+        router.push("/");
       } finally {
         setLoading(false);
       }
     };
-    loadPlaylists();
+
+    validateAndLoadData();
   }, [router]);
 
   const handleCreateMagic = () => {
     console.log("Magic playlist created!");
   };
+
+  // Don't render anything if we don't have a token
+  if (!accessToken) {
+    return null;
+  }
 
   if (loading) {
     return (
