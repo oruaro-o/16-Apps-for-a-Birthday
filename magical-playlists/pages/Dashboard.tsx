@@ -7,10 +7,25 @@ interface PlaylistType {
   id: string;
   name: string;
   coverArt?: string;
+  tracks: {
+    id: string;
+    name: string;
+    artist: string;
+    album: string;
+    duration_ms: number;
+    uri: string;
+  }[];
+}
+
+interface GeneratedTrack {
+  name: string;
+  artist: string;
+  album?: string;
+  confidence: number;
 }
 
 interface DashboardProps {
-  onCreateMagic: () => void;
+  onCreateMagic: (tracks: GeneratedTrack[]) => void;
   playlists: PlaylistType[];
 }
 
@@ -20,6 +35,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 }) => {
   const [prompt, setPrompt] = useState("");
   const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const togglePlaylistSelection = (id: string) => {
     setSelectedPlaylists((prev) =>
@@ -44,23 +60,26 @@ const Dashboard: React.FC<DashboardProps> = ({
       .map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
+        tracks: playlist.tracks,
       }));
 
     // Send to Claude API
     try {
+      setIsGenerating(true);
       const result = await claudeApi.complete({
-        prompt: `Create a playlist based on: ${prompt}. Using playlists: ${JSON.stringify(
+        prompt: `Create a playlist based on: ${prompt}. Using playlists and their tracks: ${JSON.stringify(
           selectedPlaylistDetails
         )}`,
-        max_tokens: 1000,
+        max_tokens: 10000,
       });
-      console.log("Claude API result:", result);
 
-      // Call the original onCreateMagic to navigate or perform additional actions
-      onCreateMagic();
+      // Pass the generated tracks to parent
+      onCreateMagic(result.tracks);
     } catch (error) {
       console.error("Error calling Claude API:", error);
       alert("Failed to create playlist. Please try again.");
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -74,6 +93,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             placeholder="Describe the perfect playlist..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            disabled={isGenerating}
           />
         </div>
 
@@ -83,8 +103,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           <Button
             className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#FFE1A8] hover:bg-[#1DB954] hover:text-[#FFE1A8] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
             onClick={handleCreateMagic}
+            disabled={isGenerating}
           >
-            Create Magic
+            {isGenerating ? "Creating..." : "Create Magic"}
           </Button>
         </div>
 
