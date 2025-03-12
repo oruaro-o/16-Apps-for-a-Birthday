@@ -31,22 +31,6 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
     .replace(/=+$/, '')
 }
 
-interface SpotifyTrack {
-  id: string;
-  name: string;
-  artist: string;
-  album: string;
-  duration_ms: number;
-  uri: string;
-}
-
-interface SpotifyPlaylist {
-  id: string;
-  name: string;
-  coverArt?: string;
-  tracks: SpotifyTrack[];
-}
-
 // This is a placeholder for the actual Spotify-API integration
 export const spotifyApi = {
   authorize: async (scope: string) => {
@@ -124,60 +108,11 @@ export const spotifyApi = {
     }
 
     const data = await response.json()
-    const playlists = data.items.map((playlist: any) => ({
+    return data.items.map((playlist: any) => ({
       id: playlist.id,
       name: playlist.name,
       coverArt: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : undefined
     }))
-
-    // Fetch tracks for each playlist
-    const playlistsWithTracks = await Promise.all(
-      playlists.map(async (playlist: SpotifyPlaylist) => {
-        const tracks = await spotifyApi.getPlaylistTracks(accessToken, playlist.id)
-        return {
-          ...playlist,
-          tracks,
-        }
-      })
-    )
-
-    return playlistsWithTracks
-  },
-
-  getPlaylistTracks: async (accessToken: string, playlistId: string) => {
-    const tracks = []
-    let url = `${SPOTIFY_API_BASE}/playlists/${playlistId}/tracks?limit=50`
-
-    while (url) {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${accessToken}`,
-        },
-      })
-
-      if (!response.ok) {
-        if (response.status === 429) {
-          const retryAfter = response.headers.get('Retry-After')
-          throw new Error(`Rate limited. Try again in ${retryAfter} seconds`)
-        }
-        throw new Error('Failed to fetch playlist tracks')
-      }
-
-      const data = await response.json()
-      const trackItems = data.items.map((item: any) => ({
-        id: item.track.id,
-        name: item.track.name,
-        artist: item.track.artists.map((artist: any) => artist.name).join(', '),
-        album: item.track.album.name,
-        duration_ms: item.track.duration_ms,
-        uri: item.track.uri
-      }))
-      
-      tracks.push(...trackItems)
-      url = data.next // Will be null when there are no more tracks to fetch
-    }
-
-    return tracks
   },
 }
 

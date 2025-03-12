@@ -7,14 +7,6 @@ interface PlaylistType {
   id: string;
   name: string;
   coverArt?: string;
-  tracks: {
-    id: string;
-    name: string;
-    artist: string;
-    album: string;
-    duration_ms: number;
-    uri: string;
-  }[];
 }
 
 interface DashboardProps {
@@ -52,16 +44,15 @@ const Dashboard: React.FC<DashboardProps> = ({
       .map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
-        tracks: playlist.tracks,
       }));
 
     // Send to Claude API
     try {
       const result = await claudeApi.complete({
-        prompt: `Create a playlist based on: ${prompt}. Using playlists and their tracks: ${JSON.stringify(
+        prompt: `Create a playlist based on: ${prompt}. Using playlists: ${JSON.stringify(
           selectedPlaylistDetails
         )}`,
-        max_tokens: 10000,
+        max_tokens: 1000,
       });
       console.log("Claude API result:", result);
 

@@ -9,14 +9,6 @@ interface PlaylistType {
   id: string;
   name: string;
   coverArt?: string;
-  tracks: {
-    id: string;
-    name: string;
-    artist: string;
-    album: string;
-    duration_ms: number;
-    uri: string;
-  }[];
 }
 
 export default function DashboardPage() {
@@ -50,14 +42,6 @@ export default function DashboardPage() {
   const handleCreateMagic = () => {
     console.log("Magic playlist created!");
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex items-center justify-center">
-        <div className="text-white text-xl">Loading your playlists...</div>
-      </div>
-    );
-  }
 
   return (
     <Dashboard
