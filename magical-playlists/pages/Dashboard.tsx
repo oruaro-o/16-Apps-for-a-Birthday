@@ -70,7 +70,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* Prompt input */}
         <div className="mb-8">
           <textarea
-            className="w-full min-h-[100px] bg-white bg-opacity-10 text-white rounded-lg p-4 resize-none border border-[#1DB954] focus:outline-none focus:ring-2 focus:ring-[#1DB954]"
+            className="w-full min-h-[100px] bg-white bg-opacity-10 text-white rounded-lg p-4 resize-none border border-[#FFE1A8] focus:outline-none focus:ring-2 focus:ring-[#FFE1A8]"
             placeholder="Describe the perfect playlist..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
@@ -81,7 +81,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* py-10 mt-16 mb-16 */}
         <div className="py-6 mb-12 flex justify-center">
           <Button
-            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#1E123A] hover:bg-[#1DB954] hover:text-[#1E123A] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
+            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#FFE1A8] hover:bg-[#1DB954] hover:text-[#FFE1A8] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
             onClick={handleCreateMagic}
           >
             Create Magic
