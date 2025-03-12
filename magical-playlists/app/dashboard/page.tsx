@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [playlists, setPlaylists] = useState<PlaylistType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState<string>("");
 
   useEffect(() => {
     // Check if user is authenticated
@@ -24,6 +25,8 @@ export default function DashboardPage() {
       return;
     }
 
+    setAccessToken(token);
+
     // Load user's playlists
     const loadPlaylists = async () => {
       try {
@@ -32,6 +35,13 @@ export default function DashboardPage() {
         setPlaylists(userPlaylists);
       } catch (error) {
         console.error("Failed to load playlists:", error);
+        // If we get an unauthorized error, redirect to login
+        if (
+          error instanceof Error &&
+          error.message.includes("Failed to fetch playlists")
+        ) {
+          router.push("/");
+        }
       } finally {
         setLoading(false);
       }
@@ -43,10 +53,19 @@ export default function DashboardPage() {
     console.log("Magic playlist created!");
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex items-center justify-center">
+        <div className="text-white text-xl">Loading your playlists...</div>
+      </div>
+    );
+  }
+
   return (
     <Dashboard
       onCreateMagic={handleCreateMagic}
       playlists={playlists}
+      accessToken={accessToken}
     />
   );
 }
