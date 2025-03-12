@@ -19,18 +19,10 @@ interface PlaylistType {
   }[];
 }
 
-interface GeneratedTrack {
-  name: string;
-  artist: string;
-  album?: string;
-  confidence: number;
-}
-
 export default function DashboardPage() {
   const router = useRouter();
   const [playlists, setPlaylists] = useState<PlaylistType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [generatedTracks, setGeneratedTracks] = useState<GeneratedTrack[]>([]);
 
   useEffect(() => {
     // Check if user is authenticated
@@ -55,11 +47,8 @@ export default function DashboardPage() {
     loadPlaylists();
   }, [router]);
 
-  const handleCreateMagic = (tracks: GeneratedTrack[]) => {
-    setGeneratedTracks(tracks);
-    // Store the tracks in localStorage for persistence across page navigation
-    localStorage.setItem("generated_tracks", JSON.stringify(tracks));
-    router.push("/playlist-creation");
+  const handleCreateMagic = () => {
+    console.log("Magic playlist created!");
   };
 
   if (loading) {
