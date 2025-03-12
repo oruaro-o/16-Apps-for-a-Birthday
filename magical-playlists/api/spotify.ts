@@ -114,28 +114,5 @@ export const spotifyApi = {
       coverArt: playlist.images && playlist.images.length > 0 ? playlist.images[0].url : undefined
     }))
   },
-
-  getPlaylistTracks: async (accessToken: string, playlistId: string) => {
-    const response = await fetch(`${SPOTIFY_API_BASE}/playlists/${playlistId}/tracks`, {
-      headers: {
-        'Authorization': `Bearer ${accessToken}`,
-      },
-    })
-
-    if (!response.ok) {
-      if (response.status === 429) {
-        const retryAfter = response.headers.get('Retry-After')
-        throw new Error(`Rate limited. Try again in ${retryAfter} seconds`)
-      }
-      throw new Error('Failed to fetch playlist tracks')
-    }
-
-    const data = await response.json()
-    return data.items.map((item: any) => ({
-      name: item.track.name,
-      artist: item.track.artists.map((artist: any) => artist.name).join(', '),
-      id: item.track.id
-    }))
-  },
 }
 

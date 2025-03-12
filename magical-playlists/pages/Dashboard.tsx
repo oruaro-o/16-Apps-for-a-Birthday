@@ -2,7 +2,6 @@ import type React from "react";
 import { Button } from "../components/Button";
 import { useState } from "react";
 import { claudeApi } from "../api/claude";
-import { spotifyApi } from "../api/spotify";
 
 interface PlaylistType {
   id: string;
@@ -10,26 +9,17 @@ interface PlaylistType {
   coverArt?: string;
 }
 
-interface TrackType {
-  name: string;
-  artist: string;
-  id: string;
-}
-
 interface DashboardProps {
   onCreateMagic: () => void;
   playlists: PlaylistType[];
-  accessToken: string;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
   onCreateMagic,
   playlists = [],
-  accessToken,
 }) => {
   const [prompt, setPrompt] = useState("");
   const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const togglePlaylistSelection = (id: string) => {
     setSelectedPlaylists((prev) =>
@@ -48,42 +38,20 @@ const Dashboard: React.FC<DashboardProps> = ({
       return;
     }
 
-    setIsLoading(true);
+    // Get the selected playlist details
+    const selectedPlaylistDetails = playlists
+      .filter((playlist) => selectedPlaylists.includes(playlist.id))
+      .map((playlist) => ({
+        id: playlist.id,
+        name: playlist.name,
+      }));
 
+    // Send to Claude API
     try {
-      // Get the selected playlist details and their tracks
-      const selectedPlaylistDetails = await Promise.all(
-        playlists
-          .filter((playlist) => selectedPlaylists.includes(playlist.id))
-          .map(async (playlist) => {
-            const tracks = await spotifyApi.getPlaylistTracks(
-              accessToken,
-              playlist.id
-            );
-            return {
-              id: playlist.id,
-              name: playlist.name,
-              tracks: tracks,
-            };
-          })
-      );
-
-      // Send to Claude API with tracks included
       const result = await claudeApi.complete({
-        prompt: `Create a playlist based on: ${prompt}. 
-Here are the playlists and their tracks I'm drawing inspiration from:
-
-${selectedPlaylistDetails
-  .map(
-    (playlist) => `
-Playlist: ${playlist.name}
-Tracks:
-${playlist.tracks
-  .map((track: TrackType) => `- ${track.name} by ${track.artist}`)
-  .join("\n")}
-`
-  )
-  .join("\n")}`,
+        prompt: `Create a playlist based on: ${prompt}. Using playlists: ${JSON.stringify(
+          selectedPlaylistDetails
+        )}`,
         max_tokens: 1000,
       });
       console.log("Claude API result:", result);
@@ -91,10 +59,8 @@ ${playlist.tracks
       // Call the original onCreateMagic to navigate or perform additional actions
       onCreateMagic();
     } catch (error) {
-      console.error("Error creating playlist:", error);
+      console.error("Error calling Claude API:", error);
       alert("Failed to create playlist. Please try again.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -115,15 +81,10 @@ ${playlist.tracks
         {/* py-10 mt-16 mb-16 */}
         <div className="py-6 mb-12 flex justify-center">
           <Button
-            className={`w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#FFE1A8] hover:bg-[#1DB954] hover:text-[#FFE1A8] transition-all shadow-lg border-2 border-[#2D1B4C] ${
-              isLoading
-                ? "opacity-50 cursor-not-allowed"
-                : "animate-gentle-flash"
-            }`}
+            className="w-48 h-16 rounded-xl text-xl font-bold text-[#1DB954] bg-[#FFE1A8] hover:bg-[#1DB954] hover:text-[#FFE1A8] transition-all shadow-lg border-2 border-[#2D1B4C] animate-gentle-flash"
             onClick={handleCreateMagic}
-            disabled={isLoading}
           >
-            {isLoading ? "Creating..." : "Create Magic"}
+            Create Magic
           </Button>
         </div>
 
