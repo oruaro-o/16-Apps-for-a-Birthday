@@ -5,6 +5,7 @@ interface RequestBody {
   max_tokens: number;
 }
 
+// Handle POST requests
 export async function POST(request: Request) {
   try {
     const body: RequestBody = await request.json();
@@ -43,4 +44,33 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
+
+// Handle unsupported methods
+export async function GET() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
+export async function PUT() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
+export async function DELETE() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
+}
+
+export async function PATCH() {
+  return NextResponse.json(
+    { error: 'Method not allowed' },
+    { status: 405 }
+  );
 } 
