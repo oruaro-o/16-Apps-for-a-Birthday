@@ -6,7 +6,7 @@ interface ClaudeResponse {
 export const claudeApi = {
   complete: async ({ prompt, max_tokens }: { prompt: string; max_tokens: number }): Promise<string> => {
     try {
-      const response = await fetch('https://api.anthropic.com/v1/complete', {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -14,10 +14,15 @@ export const claudeApi = {
           'anthropic-version': '2023-06-01'
         },
         body: JSON.stringify({
-          prompt: `\n\nHuman: ${prompt}\n\nAssistant:`,
           model: 'claude-3-5-sonnet-20240620',
-          max_tokens_to_sample: max_tokens,
-          temperature: 0.7
+          max_tokens: max_tokens,
+          temperature: 0.7,
+          messages: [
+            {
+              role: 'user', 
+              content: prompt
+            }
+          ]
         })
       });
 
@@ -25,8 +30,8 @@ export const claudeApi = {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const data: ClaudeResponse = await response.json();
-      return data.completion;
+      const data = await response.json();
+      return data.content[0].text;
     } catch (error) {
       console.error('Error calling Claude API:', error);
       throw error;
