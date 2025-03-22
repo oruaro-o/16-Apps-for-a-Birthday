@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 import { useState } from "react";
 import { claudeApi } from "../api/claude";
 import { spotifyApi } from "../api/spotify";
+import { Modal } from "../components/Modal";
 
 interface PlaylistType {
   id: string;
@@ -30,6 +31,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   const [prompt, setPrompt] = useState("");
   const [selectedPlaylists, setSelectedPlaylists] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [claudeResponse, setClaudeResponse] = useState("");
 
   const togglePlaylistSelection = (id: string) => {
     setSelectedPlaylists((prev) =>
@@ -51,7 +54,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     setIsLoading(true);
 
     try {
-      // Get the selected playlist details and their tracks
       const selectedPlaylistDetails = await Promise.all(
         playlists
           .filter((playlist) => selectedPlaylists.includes(playlist.id))
@@ -83,13 +85,17 @@ ${playlist.tracks
   .join("\n")}
 `
   )
-  .join("\n")}`,
+  .join("\n")}
+
+Please analyze these tracks and create a curated playlist that matches the prompt. Include your reasoning and suggestions.`,
         max_tokens: 1000,
       });
-      console.log("Claude API result:", result);
+
+      setClaudeResponse(result);
+      setModalOpen(true);
 
       // Call the original onCreateMagic to navigate or perform additional actions
-      onCreateMagic();
+      // onCreateMagic();
     } catch (error) {
       console.error("Error creating playlist:", error);
       alert("Failed to create playlist. Please try again.");
@@ -100,6 +106,12 @@ ${playlist.tracks
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#2D1B4C] to-[#1E123A] flex flex-col">
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Your Magical Playlist"
+        content={claudeResponse}
+      />
       <div className="px-8 py-10 mt-16 flex flex-col flex-grow relative">
         {/* Prompt input */}
         <div className="mb-8">
