@@ -1,15 +1,43 @@
 import { NextResponse } from 'next/server';
 
+interface PlaylistDetail {
+  id: string;
+  name: string;
+  tracks: Array<{
+    name: string;
+    artist: string;
+    id: string;
+  }>;
+}
+
 interface RequestBody {
-  prompt: string;
-  max_tokens: number;
+  userPrompt: string;
+  selectedPlaylists: PlaylistDetail[];
 }
 
 // Handle POST requests
 export async function POST(request: Request) {
   try {
     const body: RequestBody = await request.json();
-    const { prompt, max_tokens } = body;
+    const { userPrompt, selectedPlaylists } = body;
+
+    // Construct the prompt for Claude
+    const prompt = `Create a playlist based on: ${userPrompt}. 
+Here are the playlists and their tracks I'm drawing inspiration from:
+
+${selectedPlaylists
+  .map(
+    (playlist) => `
+Playlist: ${playlist.name}
+Tracks:
+${playlist.tracks
+  .map((track) => `- ${track.name} by ${track.artist}`)
+  .join("\n")}
+`
+  )
+  .join("\n")}
+
+Please analyze these tracks and create a curated playlist that matches the prompt. Include your reasoning and suggestions.`;
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -20,7 +48,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         model: 'claude-3-5-sonnet-20240620',
-        max_tokens: max_tokens,
+        max_tokens: 1000,
         temperature: 0.7,
         messages: [
           {

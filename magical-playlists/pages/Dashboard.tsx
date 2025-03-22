@@ -1,7 +1,6 @@
 import type React from "react";
 import { Button } from "../components/Button";
 import { useState } from "react";
-import { claudeApi } from "../api/claude";
 import { spotifyApi } from "../api/spotify";
 import { Modal } from "../components/Modal";
 
@@ -70,28 +69,24 @@ const Dashboard: React.FC<DashboardProps> = ({
           })
       );
 
-      // Send to Claude API with tracks included
-      const result = await claudeApi.complete({
-        prompt: `Create a playlist based on: ${prompt}. 
-Here are the playlists and their tracks I'm drawing inspiration from:
-
-${selectedPlaylistDetails
-  .map(
-    (playlist) => `
-Playlist: ${playlist.name}
-Tracks:
-${playlist.tracks
-  .map((track: TrackType) => `- ${track.name} by ${track.artist}`)
-  .join("\n")}
-`
-  )
-  .join("\n")}
-
-Please analyze these tracks and create a curated playlist that matches the prompt. Include your reasoning and suggestions.`,
-        max_tokens: 1000,
+      // Call the Claude API route directly
+      const response = await fetch("/api/claude", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userPrompt: prompt,
+          selectedPlaylists: selectedPlaylistDetails,
+        }),
       });
 
-      setClaudeResponse(result);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setClaudeResponse(data.completion);
       setModalOpen(true);
 
       // Call the original onCreateMagic to navigate or perform additional actions
