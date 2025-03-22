@@ -48,7 +48,7 @@ Please analyze these tracks and create a curated playlist that matches the promp
       },
       body: JSON.stringify({
         model: 'claude-3-5-sonnet-20240620',
-        max_tokens: 10000,
+        max_tokens: 2500,
         temperature: 0.7,
         messages: [
           {
