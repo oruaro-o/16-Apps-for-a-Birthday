@@ -43,11 +43,11 @@ Please analyze these tracks and create a curated playlist that matches the promp
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.CLAUDE_API_KEY || ''
-        // 'anthropic-version': '2023-06-01'
+        'x-api-key': process.env.CLAUDE_API_KEY || '',
+        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20241022',
+        model: 'claude-3-5-sonnet-20240620',
         max_tokens: 10000,
         temperature: 0.7,
         messages: [

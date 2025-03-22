@@ -81,19 +81,21 @@ const Dashboard: React.FC<DashboardProps> = ({
         }),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(data.error || `Error: ${response.status}`);
       }
 
-      const data = await response.json();
       setClaudeResponse(data.completion);
       setModalOpen(true);
-
-      // Call the original onCreateMagic to navigate or perform additional actions
-      // onCreateMagic();
     } catch (error) {
       console.error("Error creating playlist:", error);
-      alert("Failed to create playlist. Please try again.");
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Failed to create playlist. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
