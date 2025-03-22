@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import Anthropic from '@anthropic-ai/sdk';
 
 interface PlaylistDetail {
   id: string;
@@ -39,32 +40,30 @@ ${playlist.tracks
 
 Please analyze these tracks and create a curated playlist that matches the prompt. Include your reasoning and suggestions.`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.CLAUDE_API_KEY || '',
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-3-5-sonnet-20240620',
-        max_tokens: 2500,
-        temperature: 0.7,
-        messages: [
-          {
-            role: 'user',
-            content: prompt
-          }
-        ]
-      })
+    // Initialize Anthropic client
+    const anthropic = new Anthropic({
+      apiKey: process.env.CLAUDE_API_KEY || '',
     });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // Create message using the SDK
+    const message = await anthropic.messages.create({
+      model: 'claude-3-5-sonnet-20240620',
+      max_tokens: 2500,
+      temperature: 0.7,
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+    });
 
-    const data = await response.json();
-    return NextResponse.json({ completion: data.content[0].text });
+    // Access the content safely
+    const content = message.content[0].type === 'text' 
+      ? message.content[0].text 
+      : '';
+
+    return NextResponse.json({ completion: content });
   } catch (error) {
     console.error('Error calling Claude API:', error);
     return NextResponse.json(
