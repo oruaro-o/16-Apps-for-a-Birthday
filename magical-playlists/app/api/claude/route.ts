@@ -47,7 +47,7 @@ Please analyze these tracks and create a curated playlist that matches the promp
 
     // Create message using the SDK
     const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+      model: 'claude-3-5-haiku-20241022',
       max_tokens: 2500,
       temperature: 0.7,
       messages: [
