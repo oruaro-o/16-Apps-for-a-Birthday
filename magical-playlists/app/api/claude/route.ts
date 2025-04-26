@@ -38,7 +38,7 @@ ${playlist.tracks
   )
   .join("\n")}
 
-Please analyze these tracks and create a curated playlist that matches the prompt. Include your reasoning and suggestions.`;
+Please analyze these tracks and create a curated playlist of 15 tracks that matches the prompt. Format in JSON.`;
 
     // Initialize Anthropic client
     const anthropic = new Anthropic({
